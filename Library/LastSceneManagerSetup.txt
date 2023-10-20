@@ -1,5 +1,5 @@
 sceneSetups:
-- path: Assets/Melton/Scenes/Melton.unity
+- path: Assets/Melton/Pathfinding/Game/Scenes/Game.unity
   isLoaded: 1
   isActive: 1
   isSubScene: 0
