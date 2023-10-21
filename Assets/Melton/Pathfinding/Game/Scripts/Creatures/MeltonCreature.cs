@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Melton
 {
-    public abstract class MeltonCreature
+    public abstract class MeltonCreature : CharacterInfo
     {
         public string Name { get; set; }
         public int Position { get; set; }

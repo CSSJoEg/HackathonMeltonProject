@@ -2,7 +2,7 @@
 using System.Linq;
 using UnityEngine;
 
-namespace finished3
+namespace Melton
 {
     public class PathFinder
     {

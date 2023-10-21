@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
-using static finished3.ArrowTranslator;
+using static Melton.ArrowTranslator;
 
-namespace finished3
+namespace Melton
 {
     public class OverlayTile : MonoBehaviour
     {

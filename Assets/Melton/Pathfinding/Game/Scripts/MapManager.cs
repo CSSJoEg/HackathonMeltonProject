@@ -1,18 +1,19 @@
 using System.Collections.Generic;
 using System.Linq;
+using JetBrains.Annotations;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-namespace finished3
+namespace Melton
 {
     public class MapManager : MonoBehaviour
     {
         private static MapManager _instance;
         public static MapManager Instance { get { return _instance; } }
-
         public GameObject overlayPrefab;
         public GameObject overlayContainer;
-
+        public GameObject mouseController;
         public Dictionary<Vector2Int, OverlayTile> map;
 
         private void Awake()
@@ -28,6 +29,14 @@ namespace finished3
 
         void Start()
         {
+           /* CharSelection charSelection = new CharSelection();
+            List<MeltonCreature> meltonCreatureList = charSelection.getCreatureList();
+            foreach (MeltonCreature chars in meltonCreatureList){
+                GameObject cursorObject = new GameObject("Cursor" + chars);
+                GameObject controllerObject = new GameObject("MouseController" + chars);
+                MouseController mouseController = controllerObject.AddComponent<MouseController>();
+                mouseController.cursor = cursorObject;
+            } */
             var tileMaps = gameObject.transform.GetComponentsInChildren<Tilemap>().OrderByDescending(x => x.GetComponent<TilemapRenderer>().sortingOrder);
             map = new Dictionary<Vector2Int, OverlayTile>();
 
@@ -35,7 +44,7 @@ namespace finished3
             {
                 BoundsInt bounds = tm.cellBounds;
 
-                for (int z = bounds.max.z; z > bounds.min.z; z--)
+                for (int z = bounds.max.z; z >= bounds.min.z; z--)
                 {
                     for (int y = bounds.min.y; y < bounds.max.y; y++)
                     {

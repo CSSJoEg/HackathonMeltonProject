@@ -33,7 +33,7 @@ namespace Melton
             creature.Health -= this.Attack + 20;
         }
     }
-    public class Shaman : MeltonCreature, IHealingCreature, IManaCreature, IRangedCreature
+    public class Shaman : MeltonCreature, IHealingCreature, IManaCreature
     {
         public float AttackSpeed { get; set; }
         public int HealingValue { get; set; }
@@ -42,6 +42,27 @@ namespace Melton
         {
             creature.Health += this.HealingValue;
             this.Mana = this.Mana - 10;
+        }
+    }
+
+        public class Priest : MeltonCreature, IHealingCreature, IManaCreature, IRangedCreature
+    {
+        public float AttackSpeed { get; set; }
+        public int HealingValue { get; set; }
+        public int Mana { get; set; }
+        public void DoHeal(MeltonCreature creature)
+        {
+            creature.Health += this.HealingValue;
+            this.Mana = this.Mana - 10;
+        }
+    }
+     public class Warlock : MeltonCreature, IManaCreature
+    {
+        public int Mana { get; set; }
+        public float AttackSpeed { get; set; }
+        public void CastFireball(MeltonCreature creature)
+        {
+            creature.Health -= this.Attack + 20;
         }
     }
 }

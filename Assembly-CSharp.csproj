@@ -74,8 +74,10 @@
     <Compile Include="Assets\Melton\Pathfinding\Game\Scripts\ItemManager\ObtainableItem.cs" />
     <Compile Include="Assets\Melton\Pathfinding\Game\Scripts\ArrowTranslator.cs" />
     <Compile Include="Assets\Melton\Pathfinding\Game\Scripts\MouseController.cs" />
+    <Compile Include="Assets\Melton\Pathfinding\Game\Scripts\MultiplayerClient.cs" />
     <Compile Include="Assets\Melton\Pathfinding\Game\Scripts\ItemManager\AllItems.cs" />
     <Compile Include="Assets\Melton\Pathfinding\Game\Scripts\ItemManager\InventorySystem.cs" />
+    <Compile Include="Assets\Melton\Pathfinding\Game\Scripts\CharacterSelection\CharSelection.cs" />
     <Compile Include="Assets\Melton\Pathfinding\Game\Scripts\Creatures\MeltonCreature.cs" />
     <Compile Include="Assets\Melton\Pathfinding\Game\Scripts\Creatures\Boss.cs" />
   </ItemGroup>

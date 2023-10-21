@@ -1,24 +1,27 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
-using static finished3.ArrowTranslator;
+using static Melton.ArrowTranslator;
+using UnityEngine.TextCore.Text;
 
-namespace finished3
+namespace Melton
 {
     public class MouseController : MonoBehaviour
     {
         public GameObject cursor;
         public float speed;
         public GameObject characterPrefab;
-        public int movementRange = 3;
         private CharacterInfo character;
-
+        private GameObject chartest;
         private PathFinder pathFinder;
         private RangeFinder rangeFinder;
         private ArrowTranslator arrowTranslator;
         private List<OverlayTile> path;
         private List<OverlayTile> rangeFinderTiles;
         private bool isMoving;
+        private bool druidHasMoved;
+        private bool mageHasMoved;
+
 
         private void Start()
         {
@@ -28,6 +31,8 @@ namespace finished3
 
             path = new List<OverlayTile>();
             isMoving = false;
+            druidHasMoved = false;
+            mageHasMoved = false;
             rangeFinderTiles = new List<OverlayTile>();
         }
 
@@ -72,8 +77,22 @@ namespace finished3
                     }
                     else
                     {
+                        /*
+                        foreach(creature in charakters){
+                            switch(creature) {
+                                case creature is Shaman:
+                                    if(!druidHasMoved){
+                                        isMoving = true;
+                                    }
+                            }
+                        }
+                        */
+                        if((character is Shaman && !druidHasMoved) || (character is Mage && !mageHasMoved) ){
+                            isMoving = true;
+                        }
                         isMoving = true;
                         tile.gameObject.GetComponent<OverlayTile>().HideTile();
+
                     }
                 }
             }
@@ -86,6 +105,7 @@ namespace finished3
 
         private void MoveAlongPath()
         {
+
             var step = speed * Time.deltaTime;
 
             float zIndex = path[0].transform.position.z;
@@ -102,6 +122,13 @@ namespace finished3
             {
                 GetInRangeTiles();
                 isMoving = false;
+                if(character is Shaman){
+                    druidHasMoved = true;
+                }
+                else if(character is Mage)
+                {
+                    mageHasMoved = true;
+                }
             }
 
         }
@@ -130,11 +157,29 @@ namespace finished3
 
         private void GetInRangeTiles()
         {
-            rangeFinderTiles = rangeFinder.GetTilesInRange(new Vector2Int(character.standingOnTile.gridLocation.x, character.standingOnTile.gridLocation.y), movementRange);
-
-            foreach (var item in rangeFinderTiles)
+            switch (character)
             {
-                item.ShowTile();
+            case Mage mage:
+                rangeFinderTiles = rangeFinder.GetTilesInRange(new Vector2Int(mage.standingOnTile.gridLocation.x, mage.standingOnTile.gridLocation.y), 1);
+                foreach (var item in rangeFinderTiles)
+                {
+                    item.ShowTile();
+                }
+                 break;
+            case Shaman druid:
+                rangeFinderTiles = rangeFinder.GetTilesInRange(new Vector2Int(druid.standingOnTile.gridLocation.x, druid.standingOnTile.gridLocation.y),21);
+                foreach (var item in rangeFinderTiles)
+                {
+                    item.ShowTile();
+                }
+                 break;
+            default:
+                rangeFinderTiles = rangeFinder.GetTilesInRange(new Vector2Int(character.standingOnTile.gridLocation.x, character.standingOnTile.gridLocation.y), 3);
+                foreach (var item in rangeFinderTiles)
+                {
+                    item.ShowTile();
+                }
+                break;
             }
         }
     }

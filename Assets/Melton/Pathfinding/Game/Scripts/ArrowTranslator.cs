@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace finished3
+namespace Melton
 {
     public class ArrowTranslator
     {
